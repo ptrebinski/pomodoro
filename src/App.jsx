@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import GlobalStyles from './styles/GlobalStyles';
 import Timer from './components/Timer/Timer';
+import ModeSwitch from './components/ModeSwitch/ModeSwitch';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -13,12 +15,21 @@ const Wrapper = styled.div`
   }
 `;
 
+const minutes = {
+  pomodoro: 25,
+  shortBreak: 5,
+  longBreak: 15,
+};
+
 function App() {
+  const [currentMode, setMode] = useState('pomodoro');
+
   return (
     <Wrapper>
       <GlobalStyles />
       <h1>pomodoro</h1>
-      <Timer />
+      <ModeSwitch currentMode={currentMode} setMode={setMode} />
+      <Timer seconds={minutes[currentMode] * 60} />
     </Wrapper>
   );
 }

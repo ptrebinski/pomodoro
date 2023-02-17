@@ -18,6 +18,11 @@ const useTimer = (initialSeconds) => {
   }, [initialSeconds, start]);
 
   useEffect(() => {
+    pause();
+    setSecondsLeft(initialSeconds);
+  }, [initialSeconds, pause]);
+
+  useEffect(() => {
     let intervalId = null;
     if (isRunning) {
       intervalId = setInterval(() => {

@@ -4,10 +4,9 @@ import useTimer from '../../hooks/useTimer';
 import { formatSeconds, percentage } from '../../helpers';
 import 'react-circular-progressbar/dist/styles.css';
 
-function Timer() {
-  const initialSeconds = 10;
-  const { secondsLeft, isRunning, start, pause, restart } = useTimer(initialSeconds);
-  const progressValue = percentage(secondsLeft, initialSeconds);
+function Timer({ seconds }) {
+  const { secondsLeft, isRunning, start, pause, restart } = useTimer(seconds);
+  const progressValue = percentage(secondsLeft, seconds);
 
   const handleClick = () => {
     if (isRunning) {
