@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 
 export const Overlay = styled.div`
+  padding: 2rem 0 3rem;
+  width: 100%;
+  max-height: 100vh;
   position: fixed;
   inset: 0;
+  display: grid;
+  place-items: center;
   background-color: hsla(234, 47%, 8%, 0.5);
   z-index: 100;
+  overflow-y: scroll;
 `;
 
 export const Wrapper = styled.div`
   width: min(540px, 100% - 3rem);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border-radius: 1rem;
   background-color: hsl(var(--clr-white));
   z-index: 200;

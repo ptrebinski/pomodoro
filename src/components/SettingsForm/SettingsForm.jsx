@@ -1,17 +1,23 @@
 import { useContext, useState } from 'react';
 import { SettingsContext } from '../../context/SettingsContext';
 import Input from '../Input';
-import { Wrapper, TimeSection, Button } from './SettingsForm.styles';
+import Select from '../Select/Select';
+import { Wrapper, TimeSection, Button, SoundSection } from './SettingsForm.styles';
+import { ReactComponent as VolumeIcon } from '../../assets/icons/icon-volume.svg';
 
 function SettingsForm({ onClose }) {
-  const { minutes, saveSettings } = useContext(SettingsContext);
-  const [timeValues, setTimeValues] = useState({
-    ...minutes,
-  });
+  const { minutes, alarm, saveSettings } = useContext(SettingsContext);
+  const [timeValues, setTimeValues] = useState({ ...minutes });
+  const [alarmSound, setAlarmSound] = useState(alarm.sound);
+  const [alarmVolume, setAlarmVolume] = useState(alarm.volume);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setTimeValues((prevValues) => ({ ...prevValues, [id]: value }));
+  };
+
+  const handleSoundChange = (sound) => {
+    setAlarmSound(sound);
   };
 
   const handleSubmit = (e) => {
@@ -20,9 +26,11 @@ function SettingsForm({ onClose }) {
     const newMinutes = {};
     Object.entries(timeValues).forEach(([key, value]) => (newMinutes[key] = parseInt(value)));
 
-    saveSettings(newMinutes);
+    const newAlarm = { sound: alarmSound, volume: parseFloat(alarmVolume) };
+    saveSettings({ minutes: newMinutes, alarm: newAlarm });
     onClose();
   };
+
   return (
     <Wrapper onSubmit={handleSubmit}>
       <TimeSection>
@@ -54,6 +62,28 @@ function SettingsForm({ onClose }) {
           />
         </div>
       </TimeSection>
+
+      <SoundSection>
+        <h3>Alarm Sound</h3>
+        <div>
+          <Select
+            options={['bell', 'digital', 'kitchen']}
+            value={alarmSound}
+            onChange={handleSoundChange}
+          />
+          <Input
+            type="range"
+            label={<VolumeIcon />}
+            id="volume"
+            name="volume"
+            min={0}
+            max={1}
+            step={0.05}
+            value={alarmVolume}
+            onChange={(e) => setAlarmVolume(e.target.value)}
+          />
+        </div>
+      </SoundSection>
 
       <Button>Apply</Button>
     </Wrapper>

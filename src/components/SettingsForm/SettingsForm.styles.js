@@ -1,20 +1,34 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.form`
-  padding-bottom: 1.75rem;
+  padding: 0 1.5rem 1.75rem;
   position: relative;
+
+  @media (min-width: 550px) {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
 `;
 
-export const TimeSection = styled.section`
-  padding: 1.5rem;
+export const Section = styled.section`
+  padding: 1.5rem 0;
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid hsl(var(--clr-bg-2) / 0.1);
+  }
 
   h3 {
     margin-bottom: 1.5em;
     font-size: var(--fs-100);
     text-transform: uppercase;
-    text-align: center;
     letter-spacing: 4px;
     color: hsl(var(--clr-bg-2));
+  }
+`;
+
+export const TimeSection = styled(Section)`
+  h3 {
+    text-align: center;
   }
 
   & > div {
@@ -28,11 +42,30 @@ export const TimeSection = styled.section`
   }
 
   @media (min-width: 550px) {
-    padding: 1.5rem 2.5rem;
-
     h3 {
       margin-bottom: 2em;
       text-align: left;
+    }
+  }
+`;
+
+export const SoundSection = styled(Section)`
+  display: flex;
+  justify-content: space-between;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  @media (max-width: 26rem) {
+    flex-direction: column;
+    align-items: center;
+
+    & > div {
+      align-items: center;
     }
   }
 `;

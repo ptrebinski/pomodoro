@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as SettingsIcon } from '../assets/icon-settings.svg';
+import { ReactComponent as SettingsIcon } from '../assets/icons/icon-settings.svg';
 
 export const Wrapper = styled.button`
   border: none;

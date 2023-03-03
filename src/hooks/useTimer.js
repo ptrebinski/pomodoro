@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useTimer = (initialSeconds) => {
+const useTimer = (initialSeconds, { onFinish }) => {
   const [secondsLeft, setSecondsLeft] = useState(initialSeconds);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -40,10 +40,14 @@ const useTimer = (initialSeconds) => {
   }, [isRunning]);
 
   useEffect(() => {
-    if (secondsLeft === 0) {
+    if (secondsLeft === 0 && isRunning) {
       pause();
+
+      if (typeof onFinish === 'function') {
+        onFinish();
+      }
     }
-  }, [secondsLeft, pause]);
+  }, [secondsLeft, pause, onFinish, isRunning]);
 
   return {
     secondsLeft,

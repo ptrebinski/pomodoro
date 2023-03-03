@@ -36,6 +36,10 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     background-color: hsl(var(--clr-bg-1));
     color: hsl(var(--clr-gray-1));
+
+    &.blocked {
+      overflow: hidden;
+    }
   }
 
   input,
