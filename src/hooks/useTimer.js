@@ -17,7 +17,7 @@ const useTimer = (initialSeconds, { onFinish }) => {
     start();
   }, [initialSeconds, start]);
 
-  useEffect(() => {
+  const reset = useCallback(() => {
     pause();
     setSecondsLeft(initialSeconds);
   }, [initialSeconds, pause]);
@@ -55,6 +55,7 @@ const useTimer = (initialSeconds, { onFinish }) => {
     start,
     pause,
     restart,
+    reset,
   };
 };
 

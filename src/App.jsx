@@ -25,14 +25,13 @@ const Wrapper = styled.div`
 function App() {
   const [currentMode, setMode] = useState('pomodoro');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { minutes } = useContext(SettingsContext);
 
   return (
     <Wrapper>
       <GlobalStyles />
       <h1>pomodoro</h1>
       <ModeSwitch currentMode={currentMode} setMode={setMode} />
-      <Timer seconds={minutes[currentMode] * 60} />
+      <Timer mode={currentMode} />
       <SettingsButton onClick={() => setIsModalOpen(true)} />
       <SettingsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Wrapper>
