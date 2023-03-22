@@ -12,15 +12,14 @@ const useTimer = (initialSeconds, { onFinish }) => {
     setIsRunning(false);
   }, []);
 
-  const restart = useCallback(() => {
-    setSecondsLeft(initialSeconds);
-    start();
-  }, [initialSeconds, start]);
-
   const reset = useCallback(() => {
     pause();
     setSecondsLeft(initialSeconds);
   }, [initialSeconds, pause]);
+
+  useEffect(() => {
+    setSecondsLeft(initialSeconds);
+  }, [initialSeconds]);
 
   useEffect(() => {
     let intervalId = null;
@@ -54,7 +53,6 @@ const useTimer = (initialSeconds, { onFinish }) => {
     isRunning,
     start,
     pause,
-    restart,
     reset,
   };
 };

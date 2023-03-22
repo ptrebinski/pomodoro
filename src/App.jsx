@@ -1,11 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import GlobalStyles from './styles/GlobalStyles';
-import Timer from './components/Timer/Timer';
-import ModeSwitch from './components/ModeSwitch/ModeSwitch';
 import SettingsModal from './components/SettingsModal/SettingsModal';
 import SettingsButton, { Wrapper as SettingsButtonWrapper } from './components/SettingsButton';
-import { SettingsContext } from './context/SettingsContext';
+import PomodoroTimer from './components/PomodoroTimer/PomodoroTimer';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -23,15 +21,13 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const [currentMode, setMode] = useState('pomodoro');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <Wrapper>
       <GlobalStyles />
       <h1>pomodoro</h1>
-      <ModeSwitch currentMode={currentMode} setMode={setMode} />
-      <Timer mode={currentMode} />
+      <PomodoroTimer />
       <SettingsButton onClick={() => setIsModalOpen(true)} />
       <SettingsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Wrapper>

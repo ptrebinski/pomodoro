@@ -2,14 +2,25 @@ import { useContext, useState } from 'react';
 import { SettingsContext } from '../../context/SettingsContext';
 import Input from '../Input';
 import Select from '../Select/Select';
-import { Wrapper, TimeSection, Button, SoundSection } from './SettingsForm.styles';
+import {
+  Wrapper,
+  TimeSection,
+  Button,
+  SoundSection,
+  TransitionsSection,
+} from './SettingsForm.styles';
 import { ReactComponent as VolumeIcon } from '../../assets/icons/icon-volume.svg';
+import ToggleSwitchButton from '../ToggleSwitchButton/ToggleSwitchButton';
 
 function SettingsForm({ onClose }) {
-  const { minutes, alarm, saveSettings } = useContext(SettingsContext);
+  const { minutes, alarm, saveSettings, longBreakInterval, autoStartBreaks, autoStartPomodoros } =
+    useContext(SettingsContext);
   const [timeValues, setTimeValues] = useState({ ...minutes });
   const [alarmSound, setAlarmSound] = useState(alarm.sound);
   const [alarmVolume, setAlarmVolume] = useState(alarm.volume);
+  const [intervalValue, setIntervalValue] = useState(longBreakInterval);
+  const [autoStartBreaksValue, setAutoStartBreaksValue] = useState(autoStartBreaks);
+  const [autoStartPomodorosValue, setAutoStartPomodorosValue] = useState(autoStartPomodoros);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -27,7 +38,13 @@ function SettingsForm({ onClose }) {
     Object.entries(timeValues).forEach(([key, value]) => (newMinutes[key] = parseInt(value)));
 
     const newAlarm = { sound: alarmSound, volume: parseFloat(alarmVolume) };
-    saveSettings({ minutes: newMinutes, alarm: newAlarm });
+    saveSettings({
+      minutes: newMinutes,
+      alarm: newAlarm,
+      longBreakInterval: parseInt(intervalValue),
+      autoStartBreaks: autoStartBreaksValue,
+      autoStartPomodoros: autoStartPomodorosValue,
+    });
     onClose();
   };
 
@@ -62,6 +79,34 @@ function SettingsForm({ onClose }) {
           />
         </div>
       </TimeSection>
+
+      <TransitionsSection>
+        <Input
+          label="Long break interval"
+          type="number"
+          min={1}
+          value={intervalValue}
+          onChange={(e) => setIntervalValue(e.target.value)}
+        />
+
+        <div>
+          <span>Auto Start Breaks</span>
+          <ToggleSwitchButton
+            id="autoStartBreaks"
+            checked={autoStartBreaksValue}
+            onChange={() => setAutoStartBreaksValue((prev) => !prev)}
+          />
+        </div>
+
+        <div>
+          <span>Auto Start Pomodoros</span>
+          <ToggleSwitchButton
+            id="autoStartPomodoros"
+            checked={autoStartPomodorosValue}
+            onChange={() => setAutoStartPomodorosValue((prev) => !prev)}
+          />
+        </div>
+      </TransitionsSection>
 
       <SoundSection>
         <h3>Alarm Sound</h3>

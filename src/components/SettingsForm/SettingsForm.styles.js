@@ -49,6 +49,33 @@ export const TimeSection = styled(Section)`
   }
 `;
 
+export const TransitionsSection = styled(Section)`
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      flex: 1 0 70%;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 1;
+    }
+
+    span {
+      font-size: var(--fs-100);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: hsl(var(--clr-bg-1));
+    }
+  }
+`;
+
 export const SoundSection = styled(Section)`
   display: flex;
   justify-content: space-between;
